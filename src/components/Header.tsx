@@ -78,7 +78,7 @@ const Header = () => {
             <img
               src="/images/logo1.png"
               alt="学校标志"
-              className="h-6 sm:h-7 md:h-8 w-auto"
+              className="h-[1.5rem] sm:h-7 md:h-[1.5rem] w-auto"
             />
           </div>
 
@@ -104,13 +104,12 @@ const Header = () => {
                 className="bg-transparent outline-none px-2 sm:px-3 py-1 text-white text-xs sm:text-sm placeholder-gray-300 w-full sm:w-32 md:w-48 lg:w-64"
               />
               <button className="bg-[#96c045] hover:bg-green-600 p-1.5 rounded-full transition-colors">
-                <FaSearch className="text-xs sm:text-sm text-white" /> 
+                <FaSearch className="text-xs sm:text-sm text-white" />
               </button>
             </div>
           </div>
         </div>
       </div>
-
       {/* 主导航栏 */}
       <div className={`transition-all duration-300 ${isScrolled ? "bg-white shadow-md" : "bg-transparent"}`}>
         <div className="max-w-7xl mx-auto flex items-center justify-between px-4 py-2">
@@ -125,7 +124,7 @@ const Header = () => {
               <img
                 src="/images/school-name-zh.png"
                 alt="学校中文名"
-                className="h-4 sm:h-5 md:h-6"
+                className="h-4 sm:h-5 md:h-5"
               />
             </span>
             <div className="hidden sm:block">
@@ -133,7 +132,7 @@ const Header = () => {
                 <img
                   src="/images/school-name-zh.png"
                   alt="学校中文名"
-                  className="h-4 sm:h-5 md:h-6"
+                  className="h-[1.3rem] sm:h-[1.3rem] md:h-[1.3rem] mb-[8px]"  
                 />
               </h1>
               <p className={`${isScrolled ? "text-gray-600" : "text-white/80"}`}>

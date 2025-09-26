@@ -48,7 +48,8 @@ const Footer = () => {
           <div>
             <div className="flex items-center mb-4">
               <img src="/images/logo2.png" alt="学校Logo" className="h-10 w-auto mr-3" />
-              <h3 className="text-lg sm:text-xl font-bold">贵阳开放大学</h3>
+              {/* <h3 className="text-lg sm:text-xl font-bold">贵阳开放大学</h3> */}
+              <img src="/images/school-name-zh.png" alt=""  className="h-10 w-auto h-[1.3rem]" />
             </div>
             <p className="text-gray-400 mb-4 sm:mb-6">
               贵阳开放大学是一所以工为主，理工结合，经、管、文、法、艺等多学科协调发展的重点大学。

@@ -94,6 +94,7 @@ const NoticeSection: React.FC<NoticeSectionProps> = ({ notices }) => {
         backgroundImage: "url('/images/notice-bg.jpg')",
         backgroundSize: "cover",
         backgroundPosition: "center",
+        backgroundAttachment: "fixed"
       }}
       ref={ref}
     >

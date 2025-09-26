@@ -16,7 +16,7 @@ const cards: CardData[] = [
   {
     id: "song",
     title: "校歌",
-    bgColor: "bg-[#DDAAB9]/40",
+    bgColor: "bg-[#DDAAB9]/90",
     content: `学习让城市更美好
 当生命需要激情的时候，学习是我们终身追求；
 相约成功，打造自信，感动岁月情也深意也厚……
@@ -28,19 +28,19 @@ const cards: CardData[] = [
   {
     id: "badge",
     title: "校徽",
-    bgColor: "bg-[#84DDB1]/40",
+    bgColor: "bg-[#84DDB1]/90",
     imageUrl: logo2,
   },
   {
     id: "video",
     title: "贵开宣传片",
-    bgColor: "bg-[#E9D797]/40",
-    videoUrl: "https://www.youtube.com/embed/dQw4w9WgXcQ",
+    bgColor: "bg-[#E9D797]/90",
+    videoUrl: "http://www.gytvou.cn/uploadfile/media/326/899/2024/01/03/a_1704247227_7227413.mp4",
   },
   {
     id: "motto",
     title: "校训",
-    bgColor: "bg-[#E0AEA2]/40",
+    bgColor: "bg-[#E0AEA2]/90",
     content: `严谨治学，追求真理；立德树人，培育英才。
 校训不仅是学校精神的体现，
 也是激励师生不断前行的座右铭，鞭策着一代又一代人勇攀高峰。`,
@@ -89,80 +89,89 @@ export default function CultureSection() {
             auto-rows-[minmax(200px,auto)] gap-5 sm:gap-6 md:gap-8 lg:gap-10
           "
         >
-          {cards.map((card) => (
-            <div
-              key={card.id}
-              className={`
-                ${card.bgColor} text-white p-5 sm:p-6 md:p-8 
-                 shadow-md cursor-pointer 
-                transition-all duration-300 hover:scale-[1.03] hover:shadow-xl 
-                flex flex-col justify-between ${card.span || ""}
-              `}
-              onClick={() => card.videoUrl && handleVideoOpen(card.videoUrl)}
-            >
-              {/* 标题 */}
-              <h3
-                className="
-                  text-[1.25rem] sm:text-[1.4rem] md:text-[1.5rem] lg:text-[1.75rem]
-                  font-semibold mb-3 sm:mb-4
-                "
+          {cards.map((card) => {
+            const isCenterContent = card.id === "badge" || card.id === "video";
+
+            return (
+              <div
+                key={card.id}
+                className={`
+                  ${card.bgColor} text-white p-5 sm:p-6 md:p-8 
+                  shadow-md cursor-pointer 
+                  transition-all duration-300 hover:scale-[1.03] hover:shadow-xl 
+                  flex flex-col relative ${card.span || ""}
+                `}
+                onClick={() => card.videoUrl && handleVideoOpen(card.videoUrl)}
               >
-                {card.title}
-              </h3>
-
-              {/* 图片 */}
-              {card.imageUrl && (
-                <img
-                  src={card.imageUrl}
-                  alt={card.title}
+                {/* 标题固定在顶部 */}
+                <h3
                   className="
-                    w-20 h-20 sm:w-24 sm:h-24 md:w-28 md:h-28 lg:w-32 lg:h-32 
-                    object-contain mx-auto transition-transform duration-500 hover:rotate-6
-                  "
-                />
-              )}
-
-              {/* 视频播放按钮 */}
-              {card.videoUrl && (
-                <div
-                  className="
-                    w-14 h-14 sm:w-16 sm:h-16 md:w-20 md:h-20 
-                    flex items-center justify-center 
-                    border-4 border-white rounded-full 
-                    transition-transform duration-300 hover:scale-110 mx-auto
+                    text-[1.25rem] sm:text-[1.4rem] md:text-[1.5rem] lg:text-[1.75rem]
+                    font-semibold mb-4
                   "
                 >
-                  <span className="text-2xl sm:text-3xl md:text-4xl">▶</span>
-                </div>
-              )}
+                  {card.title}
+                </h3>
 
-              {/* 文本内容 */}
-              {card.content && (
-                <p
-                  className="
-                    leading-relaxed text-[0.85rem] sm:text-[0.9rem] md:text-[0.95rem] lg:text-[1rem]
-                    whitespace-pre-line mt-2 sm:mt-3 md:mt-4
-                  "
-                >
-                  {card.content}
-                </p>
-              )}
+                {/* 居中显示容器：logo 或播放按钮 */}
+                {isCenterContent && (
+                  <div className="flex-1 flex flex-col justify-center items-center">
+                    {card.imageUrl && (
+                      <img
+                        src={card.imageUrl}
+                        alt={card.title}
+                        className="
+                          w-20 h-20 sm:w-24 sm:h-24 md:w-28 md:h-28 lg:w-32 lg:h-32 
+                          object-contain transition-transform duration-500 hover:rotate-6
+                        "
+                      />
+                    )}
+                    {card.videoUrl && (
+                      <div
+                        className="
+                          w-14 h-14 sm:w-16 sm:h-16 md:w-20 md:h-20 
+                          flex items-center justify-center 
+                          border-4 border-white rounded-full 
+                          transition-transform duration-300 hover:scale-110 mt-4
+                        "
+                      >
+                        <span className="text-2xl sm:text-3xl md:text-4xl">▶</span>
+                      </div>
+                    )}
+                  </div>
+                )}
 
-              {/* 按钮 */}
-              {card.buttonText && (
-                <button
-                  className="
-                    mt-3 sm:mt-4 px-3 py-1.5 sm:px-4 sm:py-2 
-                    border border-white rounded 
-                    hover:bg-white hover:text-gray-700 transition-colors
-                    text-[0.85rem] sm:text-[0.9rem]
-                  "
-                >
-                  {card.buttonText}
-                </button>
-              )}
-            </div>
-          ))}
+                {/* 文本内容和按钮（非居中卡片） */}
+                {!isCenterContent && (
+                  <>
+                    {card.content && (
+                      <p
+                        className="
+                          leading-relaxed text-[0.85rem] sm:text-[0.9rem] md:text-[0.95rem] lg:text-[1rem]
+                          whitespace-pre-line mt-2 sm:mt-3 md:mt-4
+                        "
+                      >
+                        {card.content}
+                      </p>
+                    )}
+
+                    {card.buttonText && (
+                      <button
+                        className="
+                          mt-3 sm:mt-4 px-3 py-1.5 sm:px-4 sm:py-2 
+                          border border-white rounded 
+                          hover:bg-white hover:text-gray-700 transition-colors
+                          text-[0.85rem] sm:text-[0.9rem]
+                        "
+                      >
+                        {card.buttonText}
+                      </button>
+                    )}
+                  </>
+                )}
+              </div>
+            );
+          })}
         </div>
 
         {/* 视频弹窗 */}
