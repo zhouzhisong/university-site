@@ -132,14 +132,14 @@ const Header = () => {
                 <img
                   src="/images/school-name-zh.png"
                   alt="学校中文名"
-                  className="h-[1.3rem] sm:h-[1.3rem] md:h-[1.3rem] mb-[8px]"  
+                  className="h-[1.2rem] sm:h-[1.2rem] md:h-[1.2rem] mb-[8px]"  
                 />
               </h1>
               <p className={`${isScrolled ? "text-gray-600" : "text-white/80"}`}>
                 <img
                   src="/images/school-name-en.png"
                   alt="学校英文名"
-                  className="h-2.5 sm:h-3 md:h-4"
+                  className="h-2.5 sm:h-3 md:h-[0.7rem]"
                 />
               </p>
             </div>
