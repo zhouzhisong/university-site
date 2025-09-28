@@ -51,7 +51,7 @@ export const getNavMenus = async (url: string = "/api/nav_menus"): Promise<NavIt
     path: item.jumpUrl || `/${item.id}`,
     children: (item.children || []).map((child: any) => ({
       title: child.name,
-      path: child.jumpUrl || `/${child.id}`,
+      path: child.jumpUrl || `/channel?id=${child.id}`,
     })),
   }));
 };
