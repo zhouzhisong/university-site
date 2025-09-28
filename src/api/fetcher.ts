@@ -1,21 +1,21 @@
-export interface ApiResponse<T = any> {
-  code: number;
-  msg: string;
-  data: T;
+import { message } from 'antd'; 
+
+// 通用请求工具
+export async function fetcher<T>(url: string, options?: RequestInit): Promise<T> {
+  try {
+    const response = await fetch(url, options);
+    const res = await response.json();
+
+    if (res.code !== 200) {
+      message.error(res.msg || '请求失败，请稍后重试'); 
+      
+      throw new Error(res.msg || '请求失败');
+    }
+
+    return res as T;
+  } catch (error) {
+    const errorMsg = error instanceof Error ? error.message : '网络异常，请检查网络连接';
+    message.error(errorMsg); 
+    throw error;
+  }
 }
-
-/**
- * 通用 GET 请求
- * @param url 接口地址
- * @returns Promise<T>
- */
-export const fetcher = async <T = any>(url: string): Promise<T> => {
-  const res = await fetch(url, { method: "GET", headers: { "Content-Type": "application/json" } });
-  if (!res.ok) throw new Error(`请求失败: ${res.status}`);
-
-  const json: ApiResponse<T> = await res.json();
-  if (json.code !== 200) throw new Error(`接口返回异常: ${json.msg}`);
-
-  return json.data; // TS 知道一定有值
-};
-

@@ -1,4 +1,4 @@
-import { StrictMode } from 'react'
+// import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
 import { BrowserRouter } from "react-router-dom"; // 路由容器
 
@@ -10,9 +10,9 @@ import App from './App.tsx'
 // import "slick-carousel/slick/slick-theme.css";
 
 createRoot(document.getElementById('root')!).render(
-  <StrictMode>
+  // <StrictMode>
      <BrowserRouter>
       <App />
     </BrowserRouter>
-  </StrictMode>,
+  // </StrictMode>,
 )

@@ -9,7 +9,10 @@ export interface NavChild {
 export interface NavItem {
   title: string;
   path: string;
-  children: NavChild[];
+  children?: {
+    title: string;
+    path: string;
+  }[];
 }
 
 export type SiteSettings = {
@@ -28,16 +31,36 @@ export type QuickAccessItem = {
   url: string;
 };
 
+interface Item {
+  id: number;
+  name: string;
+  jumpUrl?: string;
+  children?: {
+    id: number;
+    name: string;
+    jumpUrl?: string;
+  }[];
+}
+
+interface ApiResponse<T> {
+  code: number;
+  msg: string;
+  data: T; // data 字段才是实际需要的数组
+}
 /**
  * 获取导航数据
  * @param url 接口地址
  */
 export const getNavMenus = async (url: string = "/api/nav_menus"): Promise<NavItem[]> => {
-  const data = await fetcher<any[]>(url);
+  const response = await fetcher<ApiResponse<Item[]>>(url);
 
-  if (!data) return [];
-
-  return data.map((item: any) => ({
+   if (response.code !== 200) {
+    console.error("获取导航菜单失败：", response.msg);
+    return [];
+  }
+    
+    const data = response.data;
+    return data.map((item: Item) => ({
     title: item.name,
     path: item.jumpUrl || `/${item.id}`,
     children: (item.children || []).map((child: any) => ({

@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { FaBars, FaTimes, FaSearch } from "react-icons/fa";
 import { motion, AnimatePresence } from "framer-motion";
 import { getNavMenus, getSiteSettings } from "../api/header";
-import type { NavItem ,SiteSettings} from "../api/header";
+import type { NavItem, SiteSettings } from "../api/header";
 
 
 const Header = () => {
@@ -19,16 +19,29 @@ const Header = () => {
   const [expandedIndex, setExpandedIndex] = useState<number | null>(null);
   // 监听滚动事件
   useEffect(() => {
-    getNavMenus().then(setNavItems);
-    getSiteSettings().then(setSettings);
-
-
-
+    fetchAllData()
     const handleScroll = () => setIsScrolled(window.scrollY > 30);
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+  // 用 async 函数包裹，统一处理两个请求
+  async function fetchAllData() {
+    try {
+      // 并行执行两个请求（效率更高）
+      const [navItems, settings] = await Promise.all([
+        getNavMenus(),
+        getSiteSettings()
+      ]);
+        // 两个请求都成功时，更新状态
+      setNavItems(navItems);
+      setSettings(settings);
+    } catch (error) {
+      // 任何一个请求失败（包括 code!==200 抛出的错误），都会进入这里
+      console.error("数据请求失败：", error instanceof Error ? error.message : "未知错误");
+      // 可选：添加统一的错误处理（如显示提示、使用默认数据等）
+    }
+  }
   // 处理鼠标进入 - 立即显示子菜单
   const handleMouseEnter = (index: number) => {
     if (timeoutRef.current) clearTimeout(timeoutRef.current);
