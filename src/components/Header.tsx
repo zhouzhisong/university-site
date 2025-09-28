@@ -2,8 +2,15 @@ import { useState, useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
 import { FaBars, FaTimes, FaSearch } from "react-icons/fa";
 import { motion, AnimatePresence } from "framer-motion";
+import { getNavMenus, getSiteSettings } from "../api/header";
+import type { NavItem ,SiteSettings} from "../api/header";
+
 
 const Header = () => {
+  const [navItems, setNavItems] = useState<NavItem[]>([]);
+  const [settings, setSettings] = useState<SiteSettings | null>(null);
+
+
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [activeNavIndex, setActiveNavIndex] = useState<number | null>(null);
@@ -12,40 +19,45 @@ const Header = () => {
   const [expandedIndex, setExpandedIndex] = useState<number | null>(null);
   // 监听滚动事件
   useEffect(() => {
+    getNavMenus().then(setNavItems);
+    getSiteSettings().then(setSettings);
+
+
+
     const handleScroll = () => setIsScrolled(window.scrollY > 30);
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
   // 导航项数据（含二级菜单）
-  const navItems = [
-    {
-      title: "学校概括", path: "/about", children: [
-        { title: "学校简介", path: "/about/intro" },
-        { title: "校领导", path: "/about/leaders" },
-        { title: "机构设置", path: "/about/structure" },
-      ]
-    },
-    {
-      title: "党建专题", path: "/party", children: [
-        { title: "党建动态", path: "/party/news" },
-        { title: "支部建设", path: "/party/branch" },
-      ]
-    },
-    { title: "校务公开", path: "/public", children: [] },
-    {
-      title: "招生专栏", path: "/admissions", children: [
-        { title: "招生政策", path: "/admissions/policy" },
-        { title: "报名流程", path: "/admissions/process" },
-      ]
-    },
-    { title: "学习资源", path: "/resources", children: [] },
-    { title: "社区教育", path: "/community", children: [] },
-    { title: "老年教育", path: "/elderly", children: [] },
-    { title: "家庭教育", path: "/family", children: [] },
-    { title: "数字校园", path: "/digital", children: [] },
-    { title: "学分银行", path: "/credit", children: [] },
-  ];
+  // const navItems = [
+  //   {
+  //     title: "学校概况", path: "/about", children: [
+  //       { title: "学校简介", path: "/intro" },
+  //       { title: "校领导", path: "/about/leaders" },
+  //       { title: "机构设置", path: "/about/structure" },
+  //     ]
+  //   },
+  //   {
+  //     title: "党建专题", path: "/party", children: [
+  //       { title: "党建动态", path: "/party/news" },
+  //       { title: "支部建设", path: "/party/branch" },
+  //     ]
+  //   },
+  //   { title: "校务公开", path: "/public", children: [] },
+  //   {
+  //     title: "招生专栏", path: "/admissions", children: [
+  //       { title: "招生政策", path: "/admissions/policy" },
+  //       { title: "报名流程", path: "/admissions/process" },
+  //     ]
+  //   },
+  //   { title: "学习资源", path: "/resources", children: [] },
+  //   { title: "社区教育", path: "/community", children: [] },
+  //   { title: "老年教育", path: "/elderly", children: [] },
+  //   { title: "家庭教育", path: "/family", children: [] },
+  //   { title: "数字校园", path: "/digital", children: [] },
+  //   { title: "学分银行", path: "/credit", children: [] },
+  // ];
 
   // PC 端 TopBar 快捷入口
   const topLinks = [
@@ -132,7 +144,7 @@ const Header = () => {
                 <img
                   src="/images/school-name-zh.png"
                   alt="学校中文名"
-                  className="h-[1.2rem] sm:h-[1.2rem] md:h-[1.2rem] mb-[8px]"  
+                  className="h-[1.2rem] sm:h-[1.2rem] md:h-[1.2rem] mb-[8px]"
                 />
               </h1>
               <p className={`${isScrolled ? "text-gray-600" : "text-white/80"}`}>

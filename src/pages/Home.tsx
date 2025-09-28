@@ -1,8 +1,8 @@
-import Header from "../components/Header";
+import { useEffect, useState } from "react";
+
 import Carousel from "../components/Carousel";
 import NewsComponent from "../components/NewsComponent";
 import RemoteEducationPlatform from "../components/RemoteEducationPlatform";
-import Footer from "../components/Footer";
 import NoticeSection from "../components/NoticeSection";
 import CultureSection from "../components/CultureSection";
 import slider1 from "/images/slider1.jpg";
@@ -16,6 +16,8 @@ import icon5 from '/images/icon5.png'
 
 
 const Home = () => {
+
+
   // 首页轮播图数据
   const sliderImages = [
     {
@@ -144,37 +146,37 @@ const Home = () => {
   // 远程教育模块数据
   const cards = [
     {
-      id:1,
+      id: 1,
       icon: icon6,
       title: '贵阳市民终身学习平台',
       description: '为市民终身教育学习提供优质的公共学习服务',
     },
     {
-      id:2,
+      id: 2,
       icon: icon1,
       title: '毕业证书查询',
       description: '开放学信网查询毕业证书',
     },
     {
-      id:3,
+      id: 3,
       icon: icon4,
       title: 'AI学习助手',
       description: '开放deepseek学习助手，可以解决更多难题',
     },
     {
-      id:4,
+      id: 4,
       icon: icon3,
       title: '学习资源',
       description: '贵阳开放大学拥有丰富的数字资源',
     },
     {
-      id:5,
+      id: 5,
       icon: icon2,
       title: '在线报名',
       description: '开放大学生在线报名',
     },
     {
-      id:6,
+      id: 6,
       icon: icon5,
       title: '校长信箱',
       description: '欢迎投稿：gytvou.163.com',
@@ -183,25 +185,25 @@ const Home = () => {
   // 通知模块数据
   const notices = [
     {
-      id:1,
+      id: 1,
       date: "2025-06-10",
       title: "关于开放教育超期学生清退学籍的公示",
       content: "根据《国家开放大学学籍管理办法（试行）》（国开教〔2024〕1号）的相关规定，国家开放大学开放教育学生...",
     },
     {
-      id:2,
+      id: 2,
       date: "2025-06-10",
       title: "关于开放教育即将超期学生学籍预警的公示",
       content: "根据《国家开放大学学籍管理办法（试行）》（国开教〔2024〕1号），国家开放大学开放教育学生学籍自入学...",
     },
     {
-      id:3,
+      id: 3,
       date: "2025-05-28",
       title: "国家开放大学致全体考生的一封信",
       content: "亲爱的考生：期末考试即将将至，为共同营造安全有序、公平公正的考试环境，国家开放大学向全体考生发出...",
     },
     {
-      id:4,
+      id: 4,
       date: "2025-04-03",
       title: "贵阳市2025年中小学教师资格认定公告",
       content: "根据《中华人民共和国教师法》《教师资格条例》《贵州省教师条例》《贵州省面向社会推行教师资格制度实...",
@@ -211,17 +213,13 @@ const Home = () => {
   // 文化模块
 
   return (
-    <div className="min-h-screen bg-white text-white-800 font-sans ">
-      <Header />
-      <main >
-        <Carousel sliderImages={sliderImages} />
-        <NewsComponent newsData={newsData} />
-        <NoticeSection notices={notices} />
-        <CultureSection />
-        <RemoteEducationPlatform cards={cards} />
-      </main>
-      <Footer />
-    </div>
+    <>
+      <Carousel sliderImages={sliderImages} />
+      <NewsComponent newsData={newsData} />
+      <NoticeSection notices={notices} />
+      <CultureSection />
+      <RemoteEducationPlatform cards={cards} />
+    </>
   );
 };
 

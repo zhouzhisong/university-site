@@ -8,7 +8,7 @@ const Footer = () => {
   const [contactOpen, setContactOpen] = useState(false);
 
   const quickLinks = [
-    { name: "学校概况", path: "/about/intro" },
+    { name: "学校概况", path: "/intro" },
     { name: "组织机构", path: "/org" },
     { name: "师资队伍", path: "/teachers" },
     { name: "人才培养", path: "/education" },
