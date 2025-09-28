@@ -12,15 +12,6 @@ export interface NavItem {
   children: NavChild[];
 }
 
-
-// export type NavItem = {
-//   id: number;
-//   name: string;
-//   jumpUrl: string | null;
-//   children?: NavItem[];
-// };
-
-
 export type SiteSettings = {
   website: {
     title: string;

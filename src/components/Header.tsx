@@ -29,44 +29,6 @@ const Header = () => {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  // 导航项数据（含二级菜单）
-  // const navItems = [
-  //   {
-  //     title: "学校概况", path: "/about", children: [
-  //       { title: "学校简介", path: "/intro" },
-  //       { title: "校领导", path: "/about/leaders" },
-  //       { title: "机构设置", path: "/about/structure" },
-  //     ]
-  //   },
-  //   {
-  //     title: "党建专题", path: "/party", children: [
-  //       { title: "党建动态", path: "/party/news" },
-  //       { title: "支部建设", path: "/party/branch" },
-  //     ]
-  //   },
-  //   { title: "校务公开", path: "/public", children: [] },
-  //   {
-  //     title: "招生专栏", path: "/admissions", children: [
-  //       { title: "招生政策", path: "/admissions/policy" },
-  //       { title: "报名流程", path: "/admissions/process" },
-  //     ]
-  //   },
-  //   { title: "学习资源", path: "/resources", children: [] },
-  //   { title: "社区教育", path: "/community", children: [] },
-  //   { title: "老年教育", path: "/elderly", children: [] },
-  //   { title: "家庭教育", path: "/family", children: [] },
-  //   { title: "数字校园", path: "/digital", children: [] },
-  //   { title: "学分银行", path: "/credit", children: [] },
-  // ];
-
-  // PC 端 TopBar 快捷入口
-  const topLinks = [
-    { label: "数字校园", path: "#" },
-    { label: "图书馆", path: "#" },
-    { label: "教务系统", path: "#" },
-    { label: "学习平台入口", path: "#" },
-  ];
-
   // 处理鼠标进入 - 立即显示子菜单
   const handleMouseEnter = (index: number) => {
     if (timeoutRef.current) clearTimeout(timeoutRef.current);
@@ -97,12 +59,12 @@ const Header = () => {
           <div className="flex flex-wrap items-center justify-end gap-3 sm:gap-5">
             {/* 快捷链接 - 小屏幕自动换行 */}
             <div className="flex flex-wrap gap-3 sm:gap-5">
-              {topLinks.map((item, idx) => (
+              {settings?.quick_access.map((item, idx) => (
                 <a
                   key={idx}
-                  href={item.path}
+                  href={item.url}
                   className="text-xs sm:text-sm md:text-base lg:text-lg hover:text-yellow-400 transition-colors whitespace-nowrap">
-                  {item.label}
+                  {item.name}
                 </a>
               ))}
               <span className="text-gray-400 hidden sm:inline">|</span>
@@ -242,13 +204,13 @@ const Header = () => {
                   <div className="border-b border-red-400 pb-3">
                     <p className="text-white/80 text-sm mb-2">快捷入口</p>
                     <div className="flex flex-wrap gap-2 mb-2">
-                      {topLinks.map((item, idx) => (
+                      {settings?.quick_access.map((item, idx) => (
                         <a
                           key={idx}
-                          href={item.path}
+                          href={item.url}
                           className="px-2 py-1 text-white hover:text-yellow-300 text-sm rounded hover:bg-red-600 transition-colors"
                         >
-                          {item.label}
+                          {item.name}
                         </a>
                       ))}
                     </div>
