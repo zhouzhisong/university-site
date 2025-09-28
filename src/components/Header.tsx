@@ -33,7 +33,7 @@ const Header = () => {
         getNavMenus(),
         getSiteSettings()
       ]);
-        // 两个请求都成功时，更新状态
+      // 两个请求都成功时，更新状态
       setNavItems(navItems);
       setSettings(settings);
     } catch (error) {
@@ -54,6 +54,11 @@ const Header = () => {
       setActiveNavIndex(null);
     }, 300);
   };
+
+  function hasChildren(item: NavItem): item is NavItem & { children: NavItem[] } {
+    return Array.isArray(item.children) && item.children.length > 0;
+  }
+
 
   return (
     <header ref={headerRef} className="w-full top-0 left-0 z-50">
@@ -150,7 +155,7 @@ const Header = () => {
                 </div>
 
                 {/* 二级菜单 */}
-                {item.children.length > 0 && (
+                {hasChildren(item) && (
                   <motion.div
                     initial={{ opacity: 0, y: 8 }}
                     animate={{ opacity: 1, y: 0 }}
@@ -240,12 +245,12 @@ const Header = () => {
                   {/* 主导航菜单 */}
                   {navItems.map((item, idx) => {
                     const isExpanded = idx === expandedIndex;
-                    const hasChildren = item.children.length > 0;
+                    // const hasChildren = item.children.length > 0;
                     return (
                       <div key={idx} className="border-b border-red-400">
                         <button
                           onClick={() => {
-                            if (hasChildren) {
+                            if (hasChildren(item)) {
                               setExpandedIndex(isExpanded ? null : idx);
                             } else {
                               setMobileMenuOpen(false);
@@ -254,7 +259,7 @@ const Header = () => {
                           className="w-full text-left flex justify-between items-center py-2 text-base font-medium hover:text-yellow-300 transition-colors"
                         >
                           <span>{item.title}</span>
-                          {hasChildren && (
+                          {hasChildren(item) && (
                             <motion.span
                               initial={false}
                               animate={{ rotate: isExpanded ? 90 : 0 }}
@@ -267,7 +272,7 @@ const Header = () => {
                         </button>
 
                         {/* 二级菜单展开动画 */}
-                        {hasChildren && (
+                        {hasChildren(item) && (
                           <AnimatePresence initial={false}>
                             {isExpanded && (
                               <motion.div
