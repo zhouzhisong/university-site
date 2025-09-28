@@ -1,4 +1,3 @@
-import { useEffect, useState } from "react";
 
 import Carousel from "../components/Carousel";
 import NewsComponent from "../components/NewsComponent";

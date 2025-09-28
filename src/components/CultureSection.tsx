@@ -1,4 +1,3 @@
-import { useState } from "react";
 import logo2 from "/images/logo2.png";
 
 interface CardData {
